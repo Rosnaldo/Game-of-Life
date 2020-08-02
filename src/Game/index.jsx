@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+import { zero, figure1, figure2, figure3 } from '../init';
 import './style.css';
 
 const populated = (count) => {
@@ -31,60 +32,20 @@ const fload = (board, x, y) => {
   return unpopulated(count);
 };
 
-const boardZero = () => {
-  return [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ]
-};
 
-const boardInit = () => {
-  return [
-    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ]
-};
 
 const color = (column) => {
   return (column) ? 'black' : 'white';
 };
 
 const next = (board, setBoard) => {
-  const zero = [...boardZero()];
+  const board2 = [...zero()];
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
-      zero[i][j] = fload(board, i, j);
+      board2[i][j] = fload(board, i, j);
     }
   }
-  setBoard(zero);
+  setBoard(board2);
 };
 
 const useTimer = (interval, board, setBoard, on) => {
@@ -92,7 +53,7 @@ const useTimer = (interval, board, setBoard, on) => {
     if (on) {
       interval.current = setTimeout(() => {
         next(board, setBoard);
-      }, 1000);
+      }, 250);
     }
   }, [on, board]);
 };
@@ -106,16 +67,15 @@ const stop = (setOn, interval) => {
   setOn(false);
 };
 
-function Board() {
+function Board(props) {
+  const { interval, board, setBoard } = props;
   const boardEl = useRef();
-  const interval = useRef();
-  const [board, setBoard] = useState(boardInit);
   const [on, setOn] = useState(false);
 
   useTimer(interval, board, setBoard, on);
 
   return (
-    <React.Fragment>
+    <div className="board_comp">
       <h1>Game of life</h1>
       <div className="board" ref={boardEl}>
         {board.map((line,i) => (
@@ -136,7 +96,7 @@ function Board() {
           <button type="button" onClick={() => stop(setOn, interval)}>Stop</button> :
           <button type="button" onClick={() => start(setOn)}>Start</button>}
       </div>
-    </React.Fragment>
+    </div>
   )
 }
 

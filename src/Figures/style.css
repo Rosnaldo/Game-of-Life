@@ -1,0 +1,25 @@
+.figures {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  width: 20%;
+}
+
+img {
+  border: solid;
+  border-width: 0 200px 150px 0;
+  cursor: pointer;
+}
+
+img:nth-child(1) {
+  border-image: url('../img/figure1.png') 0 100% 100% 0;
+}
+
+img:nth-child(2) {
+  border-image: url('../img/figure2.png') 0 100% 100% 0;
+}
+
+img:nth-child(3) {
+  border-image: url('../img/figure3.png') 0 100% 100% 0;
+}
